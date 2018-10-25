@@ -13,6 +13,15 @@ const model = {
 const view = {
     catList: document.querySelector("#cats"),
     display: document.querySelector("#display"),
+    admin: document.querySelector("#admin"),
+
+    showAdmin: function() {
+        this.admin.style.display = "block";
+    },
+
+    hideAdmin: function() {
+        this.admin.style.display = "none";
+    },
 
     renderListItem: function(cat) {
         const li = document.createElement("li");
@@ -56,7 +65,6 @@ const view = {
 
     renderName: function(cat) {
         const name = document.createElement("h1");
-        name.classList.add("text-center");
         name.textContent = cat.name;
         return name;
     },
@@ -69,6 +77,11 @@ const view = {
 //octopus
 
 const octopus = {
+    init: function() {
+        this.initList(model.cats);
+        view.hideAdmin();
+    },
+
     initList: function(cats) {
         for (cat of cats) {
             view.renderListItem(cat);
@@ -95,4 +108,4 @@ const octopus = {
     }
 };
 
-octopus.initList(model.cats);
+octopus.init();
