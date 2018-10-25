@@ -14,6 +14,46 @@ const view = {
     catList: document.querySelector("#cats"),
     display: document.querySelector("#display"),
     admin: document.querySelector("#admin"),
+    inputName: "",
+    inputImage: "",
+    inputClicks: 0,
+
+    listenForm: function() {
+        document
+            .querySelector("#form")
+            .addEventListener("submit", this.onSubmit);
+    },
+
+    nameChange: function(name) {
+        this.inputName = name;
+    },
+
+    imageChange: function(source) {
+        this.inputImage = source;
+    },
+
+    clicksChange: function(clicks) {
+        this.inputClicks = clicks;
+    },
+
+    onSubmit: function(e) {
+        e.preventDefault();
+        const newCat = {
+            name: view.inputName,
+            image: view.inputImage,
+            clicks: view.inputClicks
+        };
+        const oldName = display.childNodes[0].childNodes[0].textContent;
+        console.log(newCat);
+        octopus.changeCat(oldName, newCat);
+        view.clearForm();
+    },
+
+    clearForm: function() {
+        this.inputName = "";
+        this.inputImage = "";
+        this.inputClicks = 0;
+    },
 
     showAdmin: function() {
         this.admin.style.display = "block";
@@ -71,6 +111,10 @@ const view = {
 
     clearCat: function() {
         display.innerHTML = "";
+    },
+
+    clearList: function() {
+        this.catList.innerHTML = "";
     }
 };
 
@@ -80,9 +124,11 @@ const octopus = {
     init: function() {
         this.initList(model.cats);
         view.hideAdmin();
+        view.listenForm();
     },
 
     initList: function(cats) {
+        view.clearList();
         for (cat of cats) {
             view.renderListItem(cat);
         }
@@ -103,6 +149,16 @@ const octopus = {
                 cat.clicks++;
                 view.renderCat(cat);
                 break;
+            }
+        }
+    },
+
+    changeCat: function(oldName, newCat) {
+        for (let i = 0; i < model.cats.length; i++) {
+            if (model.cats[i].name === oldName) {
+                model.cats[i] = newCat;
+                view.renderCat(model.cats[i]);
+                this.initList(model.cats);
             }
         }
     }

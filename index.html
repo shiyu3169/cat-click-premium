@@ -25,18 +25,21 @@
             </div>
             <div id="admin" class="col-4">
                 <h1>Edit Cat</h1>
-                <form>
+                <form id="form">
                     <div class="form-group">
                         <label for="name">Cat Name</label>
-                        <input id="name" type="text" class="form-control" placeholder="Enter Cat Name">
+                        <input onkeyup="view.nameChange(this.value)" id="name" type="text" class="form-control"
+                            placeholder="Enter Cat Name">
                     </div>
                     <div class="form-group">
                         <label for="image">Cat Image Source</label>
-                        <input id="image" type="text" class="form-control" placeholder="https://...">
+                        <input onkeyup="view.imageChange(this.value)" id="image" type="text" class="form-control"
+                            placeholder="https://...">
                     </div>
                     <div class="form-group">
                         <label for="clicks">Number of Clicks</label>
-                        <input id="clicks" type="number" class="form-control" placeholder="# of clicks...">
+                        <input onkeyup="view.clicksChange(this.value)" id="clicks" type="number" class="form-control"
+                            placeholder="# of clicks...">
                     </div>
                     <button class="btn btn-success" type="submit">Submit</button>
                     <button onclick="view.hideAdmin()" class="btn btn-danger" type="button">Cancel</button>
